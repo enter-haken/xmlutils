@@ -1,0 +1,35 @@
+#!/usr/bin/env python
+import argparse
+import sys
+import stat
+import os
+
+import xml.etree.ElementTree as ET
+import xml.dom.minidom as MD
+
+def load_from_stdin():
+    result = []
+    mode = os.fstat(0).st_mode
+    if stat.S_ISFIFO(mode):
+        for line in sys.stdin:
+            result.append(line)
+    return result
+
+def load_from_file(fileName):
+    with open(fileName) as f:
+       return f.readlines()
+
+if __name__ == '__main__':
+    PARSER = argparse.ArgumentParser(
+            formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+            description='''
+              pretty prints xml 
+            '''
+            )
+
+    PARSER.add_argument('-o', '--fileName', default='-', help='load xml from stdin or from file. read one xml per line.')
+  
+    args = PARSER.parse_args()
+    
+    for rawXml in load_from_stdin() if args.fileName == '-' else load_from_file(args.fileNamne):
+        print(MD.parseString(rawXml).toprettyxml())
