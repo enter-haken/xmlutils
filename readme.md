@@ -29,6 +29,30 @@ $ echo "<?xml version=\"1.0\" ?><Test><a att=\"Test\">Content of a</a><foo>foo c
 </Test>
 
 ```
+### queryXml
+
+```
+usage: queryXml [-h] [-o FILENAME] -n NODE [-x]
+
+querys xml data for fields
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -o FILENAME, --fileName FILENAME
+                        choose file containing bson data. (default: -)
+  -n NODE, --node NODE  print all node content (default: None)
+  -x, --innerXml        get inner xml (default: False)
+```
+
+#### Example
+
+```
+$ echo "<?xml version=\"1.0\" ?><Test><a att=\"Test\">Content of a</a><foo>foo content</foo></Test>" | queryXml -n a
+Content of a
+
+$ echo "<?xml version=\"1.0\" ?><Test><a att=\"Test\">Content of a</a><foo>foo content</foo></Test>" | queryXml -n a -x
+<a att="Test">Content of a</a>
+```
 
 ### Contact
 
