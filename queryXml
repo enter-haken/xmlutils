@@ -36,13 +36,13 @@ if __name__ == '__main__':
     for xmlRaw in load_from_stdin() if args.fileName == '-' else load_from_file(args.fileName):
         dom = MD.parseString(xmlRaw)
         for node in dom.getElementsByTagName(args.node):
-            if args.innerXml:
+           if args.innerXml:
                 print(node.toxml())
-            elif args.attributes:
-                row = []
-                for attrName, attrValue in node.attributes.items():
-                    row.append("{}:{}".format(attrName, str(attrValue)))
-                print(" - ".join(row))
-
-            else:
-                print(node.childNodes[0].nodeValue if node.childNodes.length > 0 else '')
+           else:
+                row = node.childNodes[0].nodeValue if node.childNodes.length > 0 else ''
+                if args.attributes:
+                    attributes = []
+                    for attrName, attrValue in node.attributes.items():
+                        attributes.append("{}:{}".format(attrName, str(attrValue)))
+                    row = str(row) + " | attributes: " + " - ".join(attributes)
+                print(row)

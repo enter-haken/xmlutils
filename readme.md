@@ -56,7 +56,7 @@ $ echo "<?xml version=\"1.0\" ?><Test><a att=\"Test\">Content of a</a><foo>foo c
 <a att="Test">Content of a</a>
 
 $ echo "<?xml version=\"1.0\" ?><Test><a att=\"Test\">Content of a</a><foo>foo content</foo></Test>" | queryXml -n a -a
-att:Test
+Content of a | attributes: att:Test
 ```
 
 ### Contact
