@@ -7,17 +7,15 @@ The *xmltools* project is a collection of tiny tools, which helps processing jso
 ### prettyXml
 
 ```
-usage: queryXml [-h] [-o FILENAME] -n NODE [-x] [-a]
+usage: prettyXml [-h] [-o FILENAME]
 
-querys xml data for nodes and attributes
+pretty prints xml
 
 optional arguments:
   -h, --help            show this help message and exit
   -o FILENAME, --fileName FILENAME
-                        choose file containing bson data. (default: -)
-  -n NODE, --node NODE  print all node content (default: None)
-  -x, --innerXml        get inner xml (default: False)
-  -a, --attributes      get tag arguments (default: False)
+                        load xml from stdin or from file. read one xml per
+                        line. (default: -)
 ```
 
 #### Example
@@ -34,9 +32,9 @@ $ echo "<?xml version=\"1.0\" ?><Test><a att=\"Test\">Content of a</a><foo>foo c
 ### queryXml
 
 ```
-usage: queryXml [-h] [-o FILENAME] -n NODE [-x]
+usage: queryXml [-h] [-o FILENAME] -n NODE [-x] [-a]
 
-querys xml data for fields
+querys xml data for nodes and attributes
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -44,6 +42,7 @@ optional arguments:
                         choose file containing bson data. (default: -)
   -n NODE, --node NODE  print all node content (default: None)
   -x, --innerXml        get inner xml (default: False)
+  -a, --attributes      get tag arguments (default: False)
 ```
 
 #### Example
