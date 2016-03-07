@@ -22,13 +22,14 @@ if __name__ == '__main__':
     PARSER = argparse.ArgumentParser(
             formatter_class=argparse.ArgumentDefaultsHelpFormatter,
             description='''
-               querys xml data for fields 
+               querys xml data for nodes and attributes 
             '''
             )
 
     PARSER.add_argument('-o', '--fileName', default='-', help='choose file containing bson data.')
     PARSER.add_argument('-n', '--node', required=True, help="print all node content")
     PARSER.add_argument('-x', '--innerXml', action="store_true", help="get inner xml")
+    PARSER.add_argument('-a', '--attributes', action="store_true", help="get tag arguments")
   
     args = PARSER.parse_args()
 
@@ -37,5 +38,11 @@ if __name__ == '__main__':
         for node in dom.getElementsByTagName(args.node):
             if args.innerXml:
                 print(node.toxml())
+            elif args.attributes:
+                row = []
+                for attrName, attrValue in node.attributes.items():
+                    row.append("{}:{}".format(attrName, str(attrValue)))
+                print(" - ".join(row))
+
             else:
                 print(node.childNodes[0].nodeValue if node.childNodes.length > 0 else '')
