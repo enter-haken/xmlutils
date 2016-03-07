@@ -30,6 +30,11 @@ if __name__ == '__main__':
     PARSER.add_argument('-n', '--node', required=True, help="print all node content")
     PARSER.add_argument('-x', '--innerXml', action="store_true", help="get inner xml")
     PARSER.add_argument('-a', '--attributes', action="store_true", help="get tag arguments")
+
+    PARSER.add_argument('-s', '--nodeSeperator', default=' | ', help='choose a seperator for seperating node content from attribute content.')
+    PARSER.add_argument('-S', '--attributeSeperator', default=' : ', help='choose a seperator for seperating attribute key and value.')
+    PARSER.add_argument('-l', '--attributeListSeperator', default=' - ', help='choose a seperator for seperating attributes.')
+
   
     args = PARSER.parse_args()
 
@@ -43,6 +48,6 @@ if __name__ == '__main__':
                 if args.attributes:
                     attributes = []
                     for attrName, attrValue in node.attributes.items():
-                        attributes.append("{}:{}".format(attrName, str(attrValue)))
-                    row = str(row) + " | attributes: " + " - ".join(attributes)
+                        attributes.append(attrName + args.attributeSeperator + attrValue)
+                    row = str(row) + args.nodeSeperator +  args.attributeListSeperator.join(attributes)
                 print(row)
